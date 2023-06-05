@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using BookCatalog.API.Models;
 using BookCatalog.API.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookCatalog.API.CQRS.Books.Queries;
 
@@ -20,7 +21,7 @@ public class GetBookByIdQueryHandler : IRequestHandler<GetBookByIdQuery, Book>
 
     public async Task<Book> Handle(GetBookByIdQuery request, CancellationToken cancellationToken)
     {
-        var book = await _context.Books.FindAsync(request.Id, cancellationToken);
+        var book = await _context.Books.Include(b => b.Genres).FirstOrDefaultAsync(b => b.Id == request.Id, cancellationToken);
 
         return book;
     }

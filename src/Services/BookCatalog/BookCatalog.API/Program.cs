@@ -2,6 +2,7 @@ using BookCatalog.API.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using BookCatalog.API.Extensions;
 using Microsoft.OpenApi.Models;
+using System.Text.Json.Serialization;
 
 namespace BookCatalog.API;
 
@@ -13,8 +14,9 @@ public class Program
 
         // Add services to the container.
 
-        builder.Services.AddControllers();
-        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+        builder.Services.AddControllers().AddJsonOptions(o => 
+            o.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen(options =>
         {

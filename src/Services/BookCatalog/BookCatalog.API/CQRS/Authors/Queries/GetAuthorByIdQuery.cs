@@ -21,7 +21,7 @@ public class GetAuthorByIdQueryHandler : IRequestHandler<GetAuthorByIdQuery, Aut
 
     public async Task<Author> Handle(GetAuthorByIdQuery request, CancellationToken cancellationToken)
     {
-        var author = await _context.Authors.FindAsync(request.Id, cancellationToken);
+        var author = await _context.Authors.Include(a => a.Books).FirstOrDefaultAsync(a => a.Id == request.Id, cancellationToken);
 
         return author;
     }
