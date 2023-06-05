@@ -5,7 +5,6 @@ using BookCatalog.API.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using System.Runtime.CompilerServices;
 
 namespace BookCatalog.API.Controllers;
 
@@ -22,7 +21,7 @@ public class GenreController : ControllerBase
 
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Genre>))]
-    [SwaggerOperation("GetAllGenres")]
+    [SwaggerOperation("Get All Genres")]
     public async Task<IActionResult> GetAllGenres()
     {
         return Ok(await _mediator.Send(new GetAllGenresQuery()));
@@ -31,7 +30,7 @@ public class GenreController : ControllerBase
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Genre))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [SwaggerOperation("AddNewGenre")]
+    [SwaggerOperation("Add New Genre")]
     public async Task<IActionResult> CreateGenre(CreateGenreCommand command)
     {
         try
@@ -49,7 +48,7 @@ public class GenreController : ControllerBase
     [HttpGet("id")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Genre))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [SwaggerOperation("GetGenreById")]
+    [SwaggerOperation("Get Genre By Id")]
     public async Task<IActionResult> GetGenreById(int id)
     {
         var genre = await _mediator.Send(new GetGenreByIdQuery() { Id = id });
@@ -60,7 +59,7 @@ public class GenreController : ControllerBase
     [HttpDelete("id")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [SwaggerOperation("RemoveGenre")]
+    [SwaggerOperation("Remove Genre")]
     public async Task<IActionResult> RemoveGenreById(int id)
     {
         var isSuccess = await _mediator.Send(new DeleteGenreByIdCommand() { Id = id });
@@ -72,7 +71,7 @@ public class GenreController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [SwaggerOperation("UpdateGenreInfo")]
+    [SwaggerOperation("Update Genre Info")]
     public async Task<IActionResult> UpdateGenreById(int id, UpdateGenreByIdCommand command)
     {
         if (command.Id != id)
