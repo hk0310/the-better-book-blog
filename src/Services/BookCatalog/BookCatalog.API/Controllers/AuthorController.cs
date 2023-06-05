@@ -21,7 +21,7 @@ public class AuthorController : ControllerBase
 
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Author>))]
-    [SwaggerOperation("GetAllAuthors")]
+    [SwaggerOperation("Get All Authors")]
     public async Task<IActionResult> GetAllAuthors()
     {
         return Ok(await _mediator.Send(new GetAllAuthorsQuery()));
@@ -30,7 +30,7 @@ public class AuthorController : ControllerBase
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Author))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [SwaggerOperation("CreateAuthor")]
+    [SwaggerOperation("Add New Author")]
     public async Task<IActionResult> CreateAuthor(CreateAuthorCommand command)
     {
         try
@@ -48,7 +48,7 @@ public class AuthorController : ControllerBase
     [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Author))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [SwaggerOperation("GetAuthorById")]
+    [SwaggerOperation("Get Author By Id")]
     public async Task<IActionResult> GetAuthorById(int id)
     {
         var author = await _mediator.Send(new GetAuthorByIdQuery { Id = id });
@@ -60,7 +60,7 @@ public class AuthorController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [SwaggerOperation("RemoveAuthor")]
+    [SwaggerOperation("Remove Author")]
     public async Task<IActionResult> RemoveAuthorById(int id)
     {
         var isSuccess = await _mediator.Send(new DeleteAuthorByIdCommand { Id = id });
@@ -72,7 +72,7 @@ public class AuthorController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [SwaggerOperation("UpdateAuthorInfo")]
+    [SwaggerOperation("Update Author Info")]
     public async Task<IActionResult> UpdateAuthorById(int id, UpdateAuthorByIdCommand command)
     {
         if(command.Id != id)
