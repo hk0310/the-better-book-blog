@@ -4,22 +4,22 @@ using System.Buffers.Text;
 
 namespace BookCatalog.API.CQRS.Books.Commands;
 
-public class CreateBookCoverByIdCommand : IRequest<bool>
+public class UpdateBookCoverByIdCommand : IRequest<bool>
 {
     public int Id { get; set; }
     public string Encoding { get; set; }
 }
 
-public class CreateBookCoverByIdCommandHandler : IRequestHandler<CreateBookCoverByIdCommand, bool>
+public class UpdateBookCoverByIdCommandHandler : IRequestHandler<UpdateBookCoverByIdCommand, bool>
 {
     private readonly IBookCatalogContext _context;
 
-    public CreateBookCoverByIdCommandHandler(IBookCatalogContext context)
+    public UpdateBookCoverByIdCommandHandler(IBookCatalogContext context)
     {
         _context = context;
     }
 
-    public async Task<bool> Handle(CreateBookCoverByIdCommand request, CancellationToken cancellationToken)
+    public async Task<bool> Handle(UpdateBookCoverByIdCommand request, CancellationToken cancellationToken)
     {
         var book = await _context.Books.FindAsync(request.Id);
 

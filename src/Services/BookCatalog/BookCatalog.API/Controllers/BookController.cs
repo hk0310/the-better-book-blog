@@ -99,7 +99,7 @@ public class BookController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [SwaggerOperation("Add Book Cover")]
     [RequestSizeLimit(300_000)]
-    public async Task<IActionResult> CreateBookCoverById(int id, CreateBookCoverByIdCommand command)
+    public async Task<IActionResult> CreateBookCoverById(int id, UpdateBookCoverByIdCommand command)
     {
         if (command.Id != id)
         {
