@@ -91,4 +91,30 @@ public class BookController : ControllerBase
             return BadRequest(ex.Message);
         }
     }
+
+    [HttpPut]
+    [Route("{id}/image")]
+    [ProducesResponseType(StatusCodes.Status202Accepted)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [SwaggerOperation("Add Book Cover")]
+    [RequestSizeLimit(300_000)]
+    public async Task<IActionResult> CreateBookCoverById(int id, CreateBookCoverByIdCommand command)
+    {
+        if (command.Id != id)
+        {
+            return BadRequest();
+        }
+
+        try
+        {
+            var isSuccess = await _mediator.Send(command);
+
+            return isSuccess ? Accepted("Book cover is updated") : NotFound("Invalid book Id");
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
 }

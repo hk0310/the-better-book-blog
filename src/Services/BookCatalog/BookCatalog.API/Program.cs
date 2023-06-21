@@ -35,6 +35,7 @@ public class Program
         });
 
         builder.Services.ConfigureServices(builder.Configuration);
+        SetUpDirectory();
 
         var app = builder.Build();
 
@@ -52,5 +53,18 @@ public class Program
         app.MapControllers();
 
         app.Run();
+    }
+
+    public static void SetUpDirectory()
+    {
+        if(!Directory.Exists(Constants.BookCoverPath)) 
+        {
+            Directory.CreateDirectory(Constants.BookCoverPath);
+        }
+
+        if (!Directory.Exists(Constants.AuthorAvatarPath))
+        {
+            Directory.CreateDirectory(Constants.AuthorAvatarPath);
+        }
     }
 }
