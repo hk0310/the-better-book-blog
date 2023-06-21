@@ -91,4 +91,30 @@ public class AuthorController : ControllerBase
             return BadRequest(ex.Message);
         }
     }
+
+    [HttpPut]
+    [Route("{id}/image")]
+    [ProducesResponseType(StatusCodes.Status202Accepted)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [SwaggerOperation("Add Author Image")]
+    [RequestSizeLimit(300_000)]
+    public async Task<IActionResult> UpdateAuthorImageById(int id, UpdateAuthorImageByIdCommand command)
+    {
+        if (command.Id != id)
+        {
+            return BadRequest();
+        }
+
+        try
+        {
+            var isSuccess = await _mediator.Send(command);
+
+            return isSuccess ? Accepted("Author's image is updated") : NotFound("Invalid book Id");
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
 }

@@ -62,9 +62,9 @@ public class Program
             Directory.CreateDirectory(Constants.BookCoverPath);
         }
 
-        if (!Directory.Exists(Constants.AuthorAvatarPath))
+        if (!Directory.Exists(Constants.AuthorImagePath))
         {
-            Directory.CreateDirectory(Constants.AuthorAvatarPath);
+            Directory.CreateDirectory(Constants.AuthorImagePath);
         }
     }
 }

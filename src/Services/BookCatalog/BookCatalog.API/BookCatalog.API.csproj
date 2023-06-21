@@ -28,4 +28,9 @@
     <None Include="C:\Users\Hoang Khai\source\repos\TheBetterBookBlog\src\Services\BookCatalog\BookCatalog.API\.editorconfig" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Images\Authors\" />
+    <Folder Include="Images\BookCovers\" />
+  </ItemGroup>
+
 </Project>
