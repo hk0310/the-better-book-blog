@@ -8,7 +8,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace BookCatalog.API.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/authors")]
 public class AuthorController : ControllerBase
 {
     private readonly IMediator _mediator;
