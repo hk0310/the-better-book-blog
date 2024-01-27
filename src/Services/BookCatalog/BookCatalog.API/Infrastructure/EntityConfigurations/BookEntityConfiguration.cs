@@ -18,7 +18,7 @@ namespace BookCatalog.API.Infrastructure.EntityConfigurations
             builder.Property(b => b.Title)
                 .IsRequired();
 
-            builder.Property(b => b.DatePublished)
+            builder.Property(b => b.PublishDate)
                 .IsRequired();
         }
     }
