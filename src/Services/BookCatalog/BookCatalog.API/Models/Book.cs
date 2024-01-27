@@ -10,7 +10,7 @@ public class Book
 
     public int PageCount { get; set; }
 
-    public DateTime DatePublished { get; set; }
+    public DateOnly PublishDate { get; set; }
 
     public string CoverImagePath { get; set; }
 

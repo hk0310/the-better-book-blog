@@ -21,7 +21,7 @@ public class BookController : ControllerBase
 
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Book>))]
-    [SwaggerOperation("GetAllBooks")]
+    [SwaggerOperation("Get All Books")]
     public async Task<IActionResult> GetAllBooks()
     {
         return Ok(await _mediator.Send(new GetAllBooksQuery()));

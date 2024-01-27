@@ -10,7 +10,7 @@ public class UpdateAuthorByIdCommand : IRequest<bool>
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string Introduction { get; set; }
-    public DateTime DateOfBirth { get; set; }
+    public DateOnly DateOfBirth { get; set; }
     public string Website { get; set; }
     public string Twitter { get; set; }
 }

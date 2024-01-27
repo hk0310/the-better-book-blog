@@ -10,7 +10,7 @@ public class CreateBookCommand : IRequest<Book>
     public string Title { get; set; }
     public string Synopsis { get; set; }
     public int PageCount { get; set; }
-    public DateTime DatePublished { get; set; }
+    public DateOnly PublishDate { get; set; }
     public int AuthorId { get; set; }
     public List<int> GenreIds { get; set; }   
 }
@@ -33,7 +33,7 @@ public class CreateBookCommandHandler : IRequestHandler<CreateBookCommand, Book>
             Title = request.Title,
             Synopsis = request.Synopsis,
             PageCount = request.PageCount,
-            DatePublished = request.DatePublished,
+            PublishDate = request.PublishDate,
             AuthorId = request.AuthorId,
             Genres = genres
         };
