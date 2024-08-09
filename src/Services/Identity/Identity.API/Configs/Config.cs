@@ -24,11 +24,11 @@ public static class Config
     public static IEnumerable<ApiResource> ApiResources =>
         new ApiResource[]
         {
-            //new ApiResource("book", "Book Catalog API")
-            //{
-            //    Scopes = {"library.read", "library.modify"},
-            //    UserClaims = {JwtClaimTypes.Role}
-            //},
+            new ApiResource("book", "Book Catalog API")
+            {
+                Scopes = {"library.read", "library.modify"},
+                UserClaims = {JwtClaimTypes.Role}
+            },
             new ApiResource("user", "User API")
             {
                 Scopes = {"users.manage", "user.manage"},

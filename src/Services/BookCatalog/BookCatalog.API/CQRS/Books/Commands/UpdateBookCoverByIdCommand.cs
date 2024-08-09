@@ -1,16 +1,15 @@
-﻿using BookCatalog.API.Infrastructure;
-using MediatR;
-using System.Buffers.Text;
+﻿using BookCatalog.API.Abstractions;
+using BookCatalog.API.Infrastructure;
 
 namespace BookCatalog.API.CQRS.Books.Commands;
 
-public class UpdateBookCoverByIdCommand : IRequest<bool>
+public class UpdateBookCoverByIdCommand : ICommand<bool>
 {
     public int Id { get; set; }
     public string Encoding { get; set; }
 }
 
-public class UpdateBookCoverByIdCommandHandler : IRequestHandler<UpdateBookCoverByIdCommand, bool>
+public class UpdateBookCoverByIdCommandHandler : ICommandHandler<UpdateBookCoverByIdCommand, bool>
 {
     private readonly IBookCatalogContext _context;
 

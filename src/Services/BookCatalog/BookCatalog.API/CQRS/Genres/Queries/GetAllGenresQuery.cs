@@ -1,13 +1,13 @@
-﻿using BookCatalog.API.Infrastructure;
+﻿using BookCatalog.API.Abstractions;
+using BookCatalog.API.Infrastructure;
 using BookCatalog.API.Models;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookCatalog.API.CQRS.Genres.Queries;
 
-public class GetAllGenresQuery : IRequest<IEnumerable<Genre>> { }
+public class GetAllGenresQuery : IQuery<IEnumerable<Genre>> { }
 
-public class GetAllGenresQueryHandler : IRequestHandler<GetAllGenresQuery, IEnumerable<Genre>>
+public class GetAllGenresQueryHandler : IQueryHandler<GetAllGenresQuery, IEnumerable<Genre>>
 {
     private readonly IBookCatalogContext _context;
 

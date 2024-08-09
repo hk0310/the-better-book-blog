@@ -1,10 +1,10 @@
-﻿using MediatR;
-using BookCatalog.API.Models;
+﻿using BookCatalog.API.Abstractions;
 using BookCatalog.API.Infrastructure;
+using BookCatalog.API.Models;
 
 namespace BookCatalog.API.CQRS.Authors.Commands;
 
-public class CreateAuthorCommand : IRequest<Author>
+public class CreateAuthorCommand : ICommand<Author>
 {
     public string FirstName { get; set; }
     public string LastName { get; set; }
@@ -14,7 +14,7 @@ public class CreateAuthorCommand : IRequest<Author>
     public string Twitter { get; set; }
 }
 
-public class CreateAuthorCommandHandler : IRequestHandler<CreateAuthorCommand, Author>
+public class CreateAuthorCommandHandler : ICommandHandler<CreateAuthorCommand, Author>
 {
     private readonly IBookCatalogContext _context;
 
@@ -22,7 +22,7 @@ public class CreateAuthorCommandHandler : IRequestHandler<CreateAuthorCommand, A
     {
         _context = context;
     }
-    
+
     public async Task<Author> Handle(CreateAuthorCommand request, CancellationToken cancellationToken)
     {
         var author = new Author()

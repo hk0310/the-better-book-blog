@@ -1,8 +1,8 @@
-﻿using BookCatalog.API.CQRS.Authors.Commands;
-using BookCatalog.API.CQRS.Books.Commands;
+﻿using BookCatalog.API.CQRS.Books.Commands;
 using BookCatalog.API.CQRS.Books.Queries;
 using BookCatalog.API.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -10,6 +10,7 @@ namespace BookCatalog.API.Controllers;
 
 [ApiController]
 [Route("api/books")]
+[Authorize(Policy = "ReadScope")]
 public class BookController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -31,6 +32,7 @@ public class BookController : ControllerBase
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Book))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [SwaggerOperation("Add New Book")]
+    [Authorize(Policy = "ModifyScope")]
     public async Task<IActionResult> CreateBook(CreateBookCommand command)
     {
         try
@@ -61,6 +63,7 @@ public class BookController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [SwaggerOperation("Remove Book")]
+    [Authorize(Policy = "ModifyScope")]
     public async Task<IActionResult> RemoveBookById(int id)
     {
         var isSuccess = await _mediator.Send(new DeleteBookByIdCommand { Id = id });
@@ -73,6 +76,7 @@ public class BookController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [SwaggerOperation("Update Book Info")]
+    [Authorize(Policy = "ModifyScope")]
     public async Task<IActionResult> UpdateBookById(int id, UpdateBookByIdCommand command)
     {
         if (command.Id != id)
@@ -98,6 +102,7 @@ public class BookController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [SwaggerOperation("Add Book Cover")]
+    [Authorize(Policy = "ModifyScope")]
     [RequestSizeLimit(300_000)]
     public async Task<IActionResult> UpdateBookCoverById(int id, UpdateBookCoverByIdCommand command)
     {

@@ -1,16 +1,16 @@
-﻿using MediatR;
-using BookCatalog.API.Models;
+﻿using BookCatalog.API.Abstractions;
 using BookCatalog.API.Infrastructure;
+using BookCatalog.API.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookCatalog.API.CQRS.Books.Queries;
 
-public class GetBookByIdQuery : IRequest<Book>
+public class GetBookByIdQuery : IQuery<Book>
 {
     public int Id { get; set; }
 }
 
-public class GetBookByIdQueryHandler : IRequestHandler<GetBookByIdQuery, Book>
+public class GetBookByIdQueryHandler : IQueryHandler<GetBookByIdQuery, Book>
 {
     private readonly IBookCatalogContext _context;
 

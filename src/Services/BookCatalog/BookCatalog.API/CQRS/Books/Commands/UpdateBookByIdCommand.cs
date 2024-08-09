@@ -1,11 +1,10 @@
-﻿using BookCatalog.API.Infrastructure;
-using BookCatalog.API.Models;
-using MediatR;
+﻿using BookCatalog.API.Abstractions;
+using BookCatalog.API.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookCatalog.API.CQRS.Books.Commands;
 
-public class UpdateBookByIdCommand : IRequest<bool>
+public class UpdateBookByIdCommand : ICommand<bool>
 {
     public int Id { get; set; }
     public string Title { get; set; }
@@ -16,7 +15,7 @@ public class UpdateBookByIdCommand : IRequest<bool>
     public List<int> GenreIds { get; set; }
 }
 
-public class UpdateBookByIdCommandHandler : IRequestHandler<UpdateBookByIdCommand, bool>
+public class UpdateBookByIdCommandHandler : ICommandHandler<UpdateBookByIdCommand, bool>
 {
     private readonly IBookCatalogContext _context;
 
@@ -29,7 +28,7 @@ public class UpdateBookByIdCommandHandler : IRequestHandler<UpdateBookByIdComman
     {
         var book = await _context.Books.FindAsync(request.Id, cancellationToken);
 
-        if(book == null)
+        if (book == null)
         {
             return false;
         }

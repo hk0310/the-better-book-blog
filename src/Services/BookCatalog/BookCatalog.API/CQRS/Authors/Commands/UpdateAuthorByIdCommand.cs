@@ -1,10 +1,9 @@
-﻿using MediatR;
-using BookCatalog.API.Models;
+﻿using BookCatalog.API.Abstractions;
 using BookCatalog.API.Infrastructure;
 
 namespace BookCatalog.API.CQRS.Authors.Commands;
 
-public class UpdateAuthorByIdCommand : IRequest<bool>
+public class UpdateAuthorByIdCommand : ICommand<bool>
 {
     public int Id { get; set; }
     public string FirstName { get; set; }
@@ -15,7 +14,7 @@ public class UpdateAuthorByIdCommand : IRequest<bool>
     public string Twitter { get; set; }
 }
 
-public class UpdateAuthorByIdCommandHandler : IRequestHandler<UpdateAuthorByIdCommand, bool>
+public class UpdateAuthorByIdCommandHandler : ICommandHandler<UpdateAuthorByIdCommand, bool>
 {
     private readonly IBookCatalogContext _context;
 
@@ -32,7 +31,7 @@ public class UpdateAuthorByIdCommandHandler : IRequestHandler<UpdateAuthorByIdCo
         {
             return false;
         }
-        
+
         author.FirstName = request.FirstName;
         author.LastName = request.LastName;
         author.Introduction = request.Introduction;
@@ -42,6 +41,6 @@ public class UpdateAuthorByIdCommandHandler : IRequestHandler<UpdateAuthorByIdCo
         await _context.SaveChangesAsync(cancellationToken);
 
         return true;
-        
+
     }
 }

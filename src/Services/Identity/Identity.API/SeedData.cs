@@ -10,7 +10,7 @@ namespace Identity.API;
 
 public class SeedData
 {
-    public static void EnsureSeedData(WebApplication app)
+    public static async void EnsureSeedData(WebApplication app)
     {
         using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
         {
@@ -18,7 +18,10 @@ public class SeedData
             context.Database.Migrate();
 
             var userMgr = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-            var alice = userMgr.FindByNameAsync("alice").Result;
+            await userMgr.DeleteAsync(await userMgr.FindByNameAsync("alice"));
+            await userMgr.DeleteAsync(await userMgr.FindByNameAsync("bob"));
+
+            var alice = await userMgr.FindByNameAsync("alice");
             if (alice == null)
             {
                 alice = new ApplicationUser
@@ -27,7 +30,7 @@ public class SeedData
                     Email = "AliceSmith@email.com",
                     EmailConfirmed = true,
                 };
-                var result = userMgr.CreateAsync(alice, "Pass123$").Result;
+                var result = await userMgr.CreateAsync(alice, "Pass123$");
                 if (!result.Succeeded)
                 {
                     throw new Exception(result.Errors.First().Description);
@@ -38,6 +41,7 @@ public class SeedData
                             new Claim(JwtClaimTypes.GivenName, "Alice"),
                             new Claim(JwtClaimTypes.FamilyName, "Smith"),
                             new Claim(JwtClaimTypes.WebSite, "http://alice.com"),
+                            new Claim(JwtClaimTypes.Role, "User")
                         }).Result;
                 if (!result.Succeeded)
                 {
@@ -50,7 +54,7 @@ public class SeedData
                 Log.Debug("alice already exists");
             }
 
-            var bob = userMgr.FindByNameAsync("bob").Result;
+            var bob = await userMgr.FindByNameAsync("bob");
             if (bob == null)
             {
                 bob = new ApplicationUser
@@ -59,7 +63,7 @@ public class SeedData
                     Email = "BobSmith@email.com",
                     EmailConfirmed = true
                 };
-                var result = userMgr.CreateAsync(bob, "Pass123$").Result;
+                var result = await userMgr.CreateAsync(bob, "Pass123$");
                 if (!result.Succeeded)
                 {
                     throw new Exception(result.Errors.First().Description);
@@ -70,7 +74,8 @@ public class SeedData
                             new Claim(JwtClaimTypes.GivenName, "Bob"),
                             new Claim(JwtClaimTypes.FamilyName, "Smith"),
                             new Claim(JwtClaimTypes.WebSite, "http://bob.com"),
-                            new Claim("location", "somewhere")
+                            new Claim("location", "somewhere"),
+                            new Claim(JwtClaimTypes.Role, "Administrator")
                         }).Result;
                 if (!result.Succeeded)
                 {

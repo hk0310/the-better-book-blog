@@ -1,21 +1,21 @@
-﻿using MediatR;
-using BookCatalog.API.Models;
+﻿using BookCatalog.API.Abstractions;
 using BookCatalog.API.Infrastructure;
+using BookCatalog.API.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookCatalog.API.CQRS.Books.Commands;
 
-public class CreateBookCommand : IRequest<Book>
+public class CreateBookCommand : ICommand<Book>
 {
     public string Title { get; set; }
     public string Synopsis { get; set; }
     public int PageCount { get; set; }
     public DateOnly PublishDate { get; set; }
     public int AuthorId { get; set; }
-    public List<int> GenreIds { get; set; }   
+    public List<int> GenreIds { get; set; }
 }
 
-public class CreateBookCommandHandler : IRequestHandler<CreateBookCommand, Book>
+public class CreateBookCommandHandler : ICommandHandler<CreateBookCommand, Book>
 {
     private readonly IBookCatalogContext _context;
 

@@ -1,14 +1,14 @@
-﻿using BookCatalog.API.Infrastructure;
-using MediatR;
+﻿using BookCatalog.API.Abstractions;
+using BookCatalog.API.Infrastructure;
 
 namespace BookCatalog.API.CQRS.Books.Commands;
 
-public class DeleteBookByIdCommand : IRequest<bool>
+public class DeleteBookByIdCommand : ICommand<bool>
 {
     public int Id { get; set; }
 }
 
-public class DeleteBookByIdCommandHandler : IRequestHandler<DeleteBookByIdCommand, bool>
+public class DeleteBookByIdCommandHandler : ICommandHandler<DeleteBookByIdCommand, bool>
 {
     private readonly IBookCatalogContext _context;
 

@@ -1,16 +1,16 @@
-﻿using BookCatalog.API.Infrastructure;
+﻿using BookCatalog.API.Abstractions;
+using BookCatalog.API.Infrastructure;
 using BookCatalog.API.Models;
-using MediatR;
 
 namespace BookCatalog.API.CQRS.Genres.Commands;
 
-public class CreateGenreCommand : IRequest<Genre>
+public class CreateGenreCommand : ICommand<Genre>
 {
     public string Name { get; set; }
     public string Description { get; set; }
 }
 
-public class CreateGenreCommandHandler : IRequestHandler<CreateGenreCommand, Genre>
+public class CreateGenreCommandHandler : ICommandHandler<CreateGenreCommand, Genre>
 {
     private readonly IBookCatalogContext _context;
 

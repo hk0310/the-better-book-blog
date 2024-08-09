@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace BookCatalog.API.Models;
+﻿namespace BookCatalog.API.Models;
 
 public class Author
 {

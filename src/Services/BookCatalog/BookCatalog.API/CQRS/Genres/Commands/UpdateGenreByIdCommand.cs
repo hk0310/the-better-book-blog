@@ -1,16 +1,16 @@
-﻿using BookCatalog.API.Infrastructure;
-using MediatR;
+﻿using BookCatalog.API.Abstractions;
+using BookCatalog.API.Infrastructure;
 
 namespace BookCatalog.API.CQRS.Genres.Commands;
 
-public class UpdateGenreByIdCommand : IRequest<bool>
+public class UpdateGenreByIdCommand : ICommand<bool>
 {
     public int Id { get; set; }
     public string Name { get; set; }
     public string Description { get; set; }
 }
 
-public class UpdateGenreByIdCommandHandler : IRequestHandler<UpdateGenreByIdCommand, bool>
+public class UpdateGenreByIdCommandHandler : ICommandHandler<UpdateGenreByIdCommand, bool>
 {
     private readonly IBookCatalogContext _context;
 

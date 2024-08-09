@@ -1,15 +1,14 @@
-﻿using MediatR;
-using BookCatalog.API.Models;
+﻿using BookCatalog.API.Abstractions;
 using BookCatalog.API.Infrastructure;
 
 namespace BookCatalog.API.CQRS.Authors.Commands;
 
-public class DeleteAuthorByIdCommand : IRequest<bool>
+public class DeleteAuthorByIdCommand : ICommand<bool>
 {
     public int Id { get; set; }
 }
 
-public class DeleteAuthorByIdCommandHandler : IRequestHandler<DeleteAuthorByIdCommand, bool>
+public class DeleteAuthorByIdCommandHandler : ICommandHandler<DeleteAuthorByIdCommand, bool>
 {
     private readonly IBookCatalogContext _context;
 
@@ -22,7 +21,7 @@ public class DeleteAuthorByIdCommandHandler : IRequestHandler<DeleteAuthorByIdCo
     {
         var author = await _context.Authors.FindAsync(request.Id, cancellationToken);
 
-        if (author == null) 
+        if (author == null)
         {
             return false;
         }

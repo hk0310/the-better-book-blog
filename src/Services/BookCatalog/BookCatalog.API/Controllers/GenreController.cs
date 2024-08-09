@@ -1,8 +1,8 @@
-﻿using BookCatalog.API.CQRS.Authors.Commands;
-using BookCatalog.API.CQRS.Genres.Commands;
+﻿using BookCatalog.API.CQRS.Genres.Commands;
 using BookCatalog.API.CQRS.Genres.Queries;
 using BookCatalog.API.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -10,6 +10,7 @@ namespace BookCatalog.API.Controllers;
 
 [ApiController]
 [Route("api/genres")]
+[Authorize(Policy = "ReadScope")]
 public class GenreController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -31,6 +32,7 @@ public class GenreController : ControllerBase
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Genre))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [SwaggerOperation("Add New Genre")]
+    [Authorize(Policy = "ModifyScope")]
     public async Task<IActionResult> CreateGenre(CreateGenreCommand command)
     {
         try
@@ -60,6 +62,7 @@ public class GenreController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [SwaggerOperation("Remove Genre")]
+    [Authorize(Policy = "ModifyScope")]
     public async Task<IActionResult> RemoveGenreById(int id)
     {
         var isSuccess = await _mediator.Send(new DeleteGenreByIdCommand() { Id = id });
@@ -72,6 +75,7 @@ public class GenreController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [SwaggerOperation("Update Genre Info")]
+    [Authorize(Policy = "ModifyScope")]
     public async Task<IActionResult> UpdateGenreById(int id, UpdateGenreByIdCommand command)
     {
         if (command.Id != id)

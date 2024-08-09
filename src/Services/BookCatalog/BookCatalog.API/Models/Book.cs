@@ -14,9 +14,9 @@ public class Book
 
     public string CoverImagePath { get; set; }
 
-    public int AuthorId { get; set; }   
+    public int AuthorId { get; set; }
 
     public Author Author { get; set; }
 
-    public ICollection<Genre> Genres { get; set; } 
+    public ICollection<Genre> Genres { get; set; }
 }
