@@ -1,4 +1,8 @@
-﻿namespace BookCatalog.API.Models;
+﻿using BookCatalog.API.Serialization;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+
+namespace BookCatalog.API.Models;
 
 public class Book
 {
@@ -10,6 +14,7 @@ public class Book
 
     public int PageCount { get; set; }
 
+    [JsonConverter(typeof(IsbnConverter))]
     public Isbn Isbn { get; set; }
 
     public DateOnly PublishDate { get; set; }
