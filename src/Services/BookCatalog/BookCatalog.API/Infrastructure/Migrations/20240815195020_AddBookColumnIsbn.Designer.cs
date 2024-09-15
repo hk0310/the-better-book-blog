@@ -3,6 +3,7 @@ using System;
 using BookCatalog.API.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BookCatalog.API.Infrastructure.Migrations
 {
     [DbContext(typeof(BookCatalogContext))]
-    partial class BookCatalogContextModelSnapshot : ModelSnapshot
+    [Migration("20240815195020_AddBookColumnIsbn")]
+    partial class AddBookColumnIsbn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -81,7 +84,6 @@ namespace BookCatalog.API.Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Isbn")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("PageCount")
@@ -98,8 +100,6 @@ namespace BookCatalog.API.Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasAlternateKey("Isbn");
 
                     b.HasIndex("AuthorId");
 

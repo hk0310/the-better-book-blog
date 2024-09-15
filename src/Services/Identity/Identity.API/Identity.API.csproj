@@ -6,6 +6,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="AspIdUsers.db" />
+	  <None Remove="AspIdUsers.db-shm" />
+	  <None Remove="AspIdUsers.db-wal" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Duende.IdentityServer.AspNetIdentity" Version="6.3.2" />
 
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="6.0.0" />

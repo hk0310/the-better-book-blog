@@ -47,7 +47,7 @@ public class BookController : ControllerBase
         }
     }
 
-    [HttpGet("id")]
+    [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Book))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [SwaggerOperation("Get Book By Id")]

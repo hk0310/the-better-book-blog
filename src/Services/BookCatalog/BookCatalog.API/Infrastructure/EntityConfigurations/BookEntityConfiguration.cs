@@ -10,6 +10,7 @@ namespace BookCatalog.API.Infrastructure.EntityConfigurations
             builder.ToTable(nameof(Book));
 
             builder.HasKey(b => b.Id);
+            builder.HasAlternateKey(b => b.Isbn);
 
             builder.Property(b => b.Id)
                 .UseHiLo("book_hilo")
@@ -20,6 +21,10 @@ namespace BookCatalog.API.Infrastructure.EntityConfigurations
 
             builder.Property(b => b.PublishDate)
                 .IsRequired();
+
+            builder.Property(b => b.Isbn)
+                .HasConversion(v => v.ToString(),
+                               v => new Isbn(v));
         }
     }
 }
